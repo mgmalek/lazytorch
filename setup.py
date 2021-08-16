@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name="lazytorch",
-    version="0.1",
+    version="0.1.1",
     description="Lazily-Initialized PyTorch Modules",
     author="Michael Malek",
     author_email="michaelgmalek@gmail.com",

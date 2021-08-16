@@ -240,6 +240,13 @@ class BasicTests(unittest.TestCase):
         x = torch.randn(1, 16, 32, 32)
         y = layer(x)
         self.assertEqual(y.shape, (1, 32, 32, 32))
+    
+    def test_lazy_dilated_depth_sep_conv_2d(self):
+        """Test the LazyDepthSepConv2d module with dilated convolutions"""
+        layer = LazyDepthSepConv2d(out_channels=32, kernel_size=3, padding=2, dilation=2)
+        x = torch.randn(1, 16, 32, 32)
+        y = layer(x)
+        self.assertEqual(y.shape, (1, 32, 32, 32))
 
 
 if __name__ == "__main__":

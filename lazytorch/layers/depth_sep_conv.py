@@ -13,13 +13,14 @@ class DepthwiseConv2d(ConvNormActivation):
     """2D Depthwise Convolution"""
 
     def __init__(self, channels: int, kernel_size: int = 3, stride: int = 1, **kwargs):
-        padding = kernel_size // 2
+        if 'padding' not in kwargs:
+            kwargs['padding'] = kernel_size // 2
+
         super().__init__(
             channels,
             channels,
             kernel_size,
             stride,
-            padding=padding,
             groups=channels,
             **kwargs
         )
@@ -44,6 +45,7 @@ class DepthSepConv2d(NamedSequential):
         stride: int = 1,
         norm_layer: nn.Module = nn.BatchNorm2d,
         activation: nn.Module = nn.ReLU,
+        **kwargs,
     ):
         super().__init__(
             dw=DepthwiseConv2d(
@@ -52,6 +54,7 @@ class DepthSepConv2d(NamedSequential):
                 stride,
                 norm_layer=norm_layer,
                 activation=activation,
+                **kwargs,
             ),
             pw=PointwiseConv2d(
                 in_channels, out_channels, norm_layer=norm_layer, activation=activation
